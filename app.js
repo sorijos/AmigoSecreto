@@ -19,14 +19,26 @@ function agregarAmigo()
         return;
     }
 
-    //vamos a obtener el id del elemento padre al que se le agregaran los elmntos li de los nombre ingresados 
+    // no hay que repetir nombres
     const lista = document.getElementById('listaAmigos');
+    const existingLis = lista.querySelectorAll('li');
+    
+    for (let i = 0; i < existingLis.length; i++) {
+        if (existingLis[i].textContent.trim().toLowerCase() === amigoNombre.toLowerCase()) {
+            alert('El nombre ya existe en la lista.');
+            return;
+        }
+    }    
+
+    //vamos a obtener el id del elemento padre al que se le agregaran los elmntos li de los nombre ingresados 
+    
     const li = document.createElement('li');
     li.textContent = amigoNombre;
     lista.appendChild(li);
 
     // vaciar el campo para que ingresen más nombres
     input.value = '';
+    input.focus();
 
 }
 
@@ -48,17 +60,17 @@ function sortearAmigo()
         }
 
 
-        // pasamos los amigos a una lista para sortearlos
+        // pasamos los amigos a una lista para el sroteo
         const amigos = [...amigosLi].map(li => li.textContent.trim());
 
-        // Elegir un índice aleatorio
+        // Elegir un nombre random
         const randomIndex = Math.floor(Math.random() * amigos.length);
         const amigoGanador = amigos[randomIndex];
 
-        // Ocultar la lista (y sus li)
+        // oculyas los LI
         listaAmigos.style.display = 'none';
 
-        // Limpiar el contenido de 'resultado'**********
+        // Limpiar el contenido de 'resultado'
         const resultado = document.getElementById('resultado');
         resultado.innerHTML = '';        
 
